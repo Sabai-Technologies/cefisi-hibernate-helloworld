@@ -36,10 +36,10 @@ public class UserTest {
         User user = entityManager.find(User.class, id);
 
         // then
-        assertThat(user.getFirstName()).isEqualTo("Christophe");
-        assertThat(user.getLastName()).isEqualTo("Amory");
-        assertThat(user.getEmail()).isEqualTo("christophe@amory.fr");
-        assertThat(user.getAge()).isEqualTo(42);
+        assertThat(user.getFirstName()).isEqualTo("James");
+        assertThat(user.getLastName()).isEqualTo("Lawson");
+        assertThat(user.getEmail()).isEqualTo("Phasellus@commodoipsum.ca");
+        assertThat(user.getAge()).isEqualTo(35);
     }
 
 
@@ -60,6 +60,20 @@ public class UserTest {
         // then
         Integer rowAfterSave = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM user", Integer.class);
         assertThat(rowAfterSave).isEqualTo(rowBeforeSave + 1);
+
+    }
+
+    @Test
+    public void should_count_number_of_user() {
+        // given
+        String jpQuery = "select count(u.id) from User u";
+
+
+        // when
+        Long number = (Long) entityManager.createQuery(jpQuery).getSingleResult();
+
+        // then
+        assertThat(number).isEqualTo(100);
 
     }
 }
